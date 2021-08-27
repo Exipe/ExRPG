@@ -80,6 +80,51 @@
                 "materials": [
                     ["ingot_copper", 3]
                 ]
+            },
+
+            {
+                "unlockable": false,
+                "delay": 2000,
+                "item": "helm_iron",
+                "materials": [
+                    ["ingot_iron", 3]
+                ]
+            },
+
+            {
+                "unlockable": false,
+                "delay": 4000,
+                "item": "plate_iron",
+                "materials": [
+                    ["ingot_iron", 5]
+                ]
+            },
+
+            {
+                "unlockable": false,
+                "delay": 3000,
+                "item": "legs_iron",
+                "materials": [
+                    ["ingot_iron", 4]
+                ]
+            },
+
+            {
+                "unlockable": false,
+                "delay": 2000,
+                "item": "shield_iron",
+                "materials": [
+                    ["ingot_iron", 3]
+                ]
+            },
+
+            {
+                "unlockable": false,
+                "delay": 2000,
+                "item": "sword_iron",
+                "materials": [
+                    ["ingot_iron", 3]
+                ]
             }
         ]
     }

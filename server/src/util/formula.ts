@@ -24,7 +24,7 @@ export function speedBonus(x: number) {
     return Math.max(0.05, 1 + (x >= 0 ? 1 : -1) * result)
 }
 
-const MIN_DAMAGE = 5
+const MIN_DAMAGE = 2
 
 export function maxDamage(x: number) {
     if(x <= 0) {
@@ -33,34 +33,25 @@ export function maxDamage(x: number) {
 
     let result = MIN_DAMAGE
     if(x > 10) {
-        result += 1 * (x - 10)
+        result += 0.5 * (x - 10)
         x = 10
     }
 
-    result += 1.5 * x
+    result += 0.75 * x
 
     return Math.floor(result)
 }
 
 export function highHitChance(accuracy: number, defence: number) {
     let remainder = Math.abs(accuracy - defence)
-    let result = 0
-
-    if(remainder > 20) {
-        result += 0.0025 * (remainder - 20)
-        remainder = 20
-    }
-
-    result += 0.01 * remainder
-
-    result = Math.min(0.45, result)
+    let result = Math.min(0.5, 0.025*remainder)
     return 0.5 + (accuracy > defence ? 1 : -1) * result
 }
 
 export function calculateDamage(maxDamage: number, accuracy: number, defence: number): [HitSplatType, number] {
     const highHit = Math.random() < highHitChance(accuracy, defence)
-    const lowerBound = Math.ceil(highHit ? maxDamage / 10 : 0)
-    const higherBound = Math.ceil(highHit ? maxDamage : maxDamage / 10)
+    const lowerBound = highHit ? Math.ceil(maxDamage / 10) : 0
+    const higherBound = Math.floor(highHit ? maxDamage : maxDamage / 10)
 
     return [highHit ? "hit" : "miss", randomInt(lowerBound, higherBound)]
 }
@@ -70,5 +61,5 @@ export function experienceRequired(level: number) {
 }
 
 export function maxHealth(level: number) {
-    return level < 20 ? 100 + (level-1) * 5 : level * 10
+    return Math.floor(15+(level-1)*1.5)
 }

@@ -31,30 +31,95 @@
     },
 
     {
+        "id": "key_dungeon",
+        "name": "Dungeon key",
+        "sprite": "key"
+    },
+
+    {
         "id": "beta_hat",
         "name": "Beta hat",
         "sprite": "beta_hat",
         "equip": {
             "slot": "helm",
-            "sprite": "beta_hat"
+            "sprite": ["hat", 0]
         }
+    },
+
+    {
+        "id": "santa_hat",
+        "name": "Santa hat",
+        "sprite": "hat",
+        "equip": {
+            "slot": "helm",
+            "sprite": ["hat", 1]
+        }
+    },
+
+    {
+        "id": "top_hat",
+        "name": "Top hat",
+        "sprite": "hat",
+        "equip": {
+            "slot": "helm",
+            "sprite": ["hat", 2]
+        }
+    },
+
+    {
+        "id": "suit_jacket",
+        "name": "Suit jacket",
+        "sprite": "shirt",
+        "equip": {
+            "slot": "plate",
+            "sprite": ["clothes", 4]
+        }
+    },
+
+    {
+        "id": "suit_trousers",
+        "name": "Suit trousers",
+        "sprite": "legs",
+        "equip": {
+            "slot": "legs",
+            "sprite": ["clothes", 5]
+        }
+    },
+
+    {
+        "id": "fish",
+        "name": "Fish",
+        "sprite": "fish",
+
+        "value": 5,
+
+        "options": [ "Eat" ]
     },
 
     {
         "id": "axe_crude",
         "name": "Crude axe",
-        "sprite": "axe"
+        "sprite": "axe",
+        "value": 15
     },
 
     {
         "id": "pickaxe_crude",
         "name": "Crude pickaxe",
-        "sprite": "pickaxe"
-    }, 
+        "sprite": "pickaxe",
+        "value": 30
+    },
+
+    {
+        "id": "fishing_rod",
+        "name": "Crude fishing rod",
+        "sprite": "fishing_rod",
+        "value": 88
+    },
 
     {
         "id": "recipe_helm_copper",
-        "name": "Recipe (Copper helm)",
+        "name": "[Recipe] Copper helm",
         "sprite": "scroll",
 
         "options": [
@@ -77,30 +142,35 @@
     {
         "id": "ore_iron",
         "name": "Iron ore",
-        "sprite": "iron/ore"
+        "sprite": "iron/ore",
+        "value": 250
     },
 
     {
         "id": "ingot_iron",
         "name": "Iron ingot",
-        "sprite": "iron/ingot"
+        "sprite": "iron/ingot",
+        "value": 400
     },
 
     {
         "id": "ore_copper",
         "name": "Copper ore",
-        "sprite": "copper/ore"
+        "sprite": "copper/ore",
+        "value": 8
     },
 
     {
         "id": "ingot_copper",
         "name": "Copper ingot",
-        "sprite": "copper/ingot"
+        "sprite": "copper/ingot",
+        "value": 18
     },
 
     {
         "id": "wizard_hat",
         "name": "Wizard hat",
+        "sprite": "hat",
         "equip": {
             "slot": "helm",
             "sprite": ["robes", 0]
@@ -110,6 +180,7 @@
     {
         "id": "wizard_top",
         "name": "Wizard top",
+        "sprite": "shirt",
         "equip": {
             "slot": "plate",
             "sprite": ["robes", 1]
@@ -119,6 +190,7 @@
     {
         "id": "wizard_bottom",
         "name": "Wizard bottom",
+        "sprite": "legs",
         "equip": {
             "slot": "legs",
             "sprite": ["robes", 2]
@@ -221,8 +293,14 @@
         "id": "sword_iron",
         "name": "Iron sword",
         "sprite": "iron/sword",
+        "value": 1600,
         "equip": {
-            "slot": "sword"
+            "slot": "sword",
+
+            "bonuses": {
+                "accuracy": 15,
+                "damage": 15
+            }
         }
     },
 
@@ -230,10 +308,14 @@
         "id": "helm_iron",
         "name": "Iron helmet",
         "sprite": "iron/helm",
-        "value": 2250,
+        "value": 1300,
         "equip": {
             "slot": "helm",
-            "sprite": ["iron", 1]
+            "sprite": ["iron", 1],
+
+            "bonuses": {
+                "defence": 5
+            }
         }
     },
 
@@ -241,10 +323,14 @@
         "id": "plate_iron",
         "name": "Iron platebody",
         "sprite": "iron/plate",
-        "value": 3400,
+        "value": 2200,
         "equip": {
             "slot": "plate",
-            "sprite": ["iron", 2]
+            "sprite": ["iron", 2],
+
+            "bonuses": {
+                "defence": 11
+            }
         }
     },
 
@@ -252,10 +338,14 @@
         "id": "legs_iron",
         "name": "Iron platelegs",
         "sprite": "iron/legs",
-        "value": 3200,
+        "value": 1700,
         "equip": {
             "slot": "legs",
-            "sprite": ["iron", 3]
+            "sprite": ["iron", 3],
+
+            "bonuses": {
+                "defence": 6
+            }
         }
     },
 
@@ -263,10 +353,14 @@
         "id": "shield_iron",
         "name": "Iron shield",
         "sprite": "iron/shield",
-        "value": 2500,
+        "value": 1500,
         "equip": {
             "slot": "shield",
-            "sprite": ["iron", 0]
+            "sprite": ["iron", 0],
+
+            "bonuses": {
+                "defence": 8
+            }
         }
     },
 
@@ -274,6 +368,7 @@
         "id": "sword_copper",
         "name": "Copper sword",
         "sprite": "copper/sword",
+        "value": 100,
         "equip": {
             "slot": "sword",
 
@@ -345,9 +440,43 @@
     },
 
     {
+        "id": "potion_health_weak",
+        "name": "Health potion",
+        "sprite": "potion",
+        "value": 250,
+
+        "options": [
+            "Drink"
+        ]
+    },
+
+    {
         "id": "apple",
         "name": "Apple",
         "sprite": "apple",
+        "value": 2,
+
+        "options": [
+            "Eat"
+        ]
+    },
+
+    {
+        "id": "coffee",
+        "name": "Cup of Coffee",
+        "sprite": "coffee",
+        "value": 4,
+
+        "options": [
+            "Drink"
+        ]
+    },
+
+    {
+        "id": "strawberry",
+        "name": "Strawberry",
+        "sprite": "strawberry",
+        "value": 2,
 
         "options": [
             "Eat"
@@ -357,7 +486,8 @@
     {
         "id": "log_common",
         "name": "Log",
-        "sprite": "log"
+        "sprite": "log",
+        "value": 5
     }
 
 ]

@@ -102,7 +102,8 @@ export function initNpcs(game: Game): void {
     const onNpcContext = (npc: Npc) => {
         const data = npc.data
         data.options.forEach(option => {
-            game.ctxMenu.add([option[0] + " " + data.name, () => {
+            const text = `${option[0]} /rgb(255,230,120,${data.name})`
+            game.ctxMenu.add([text, () => {
                 npcAction(npc, option[1])
             }])
         })

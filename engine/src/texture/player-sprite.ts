@@ -1,5 +1,6 @@
 
 import { Engine, Sprite, MergeTexture, EquipmentData } from ".."
+import { EquipmentSprite } from "../item/equipment-data"
 
 export class PlayerSprite {
 
@@ -10,16 +11,18 @@ export class PlayerSprite {
     private readonly mergeTexture: MergeTexture
     public readonly sprite: Sprite 
 
-    private appearanceValues: EquipmentData[]
+    private appearanceValues: EquipmentSprite[]
 
-    constructor(engine: Engine, baseSprite: Sprite, appearanceValues: EquipmentData[]) {
+    constructor(engine: Engine, baseSprite: Sprite, appearanceValues: EquipmentSprite[] = null) {
         this.engine = engine
         this.baseSprite = baseSprite
 
         this.mergeTexture = new MergeTexture(engine, baseSprite.width, baseSprite.height)
         this.sprite = new Sprite(engine, this.mergeTexture.texture)
 
-        this.setAppearanceValues(appearanceValues)
+        if(appearanceValues != null) {
+            this.setAppearanceValues(appearanceValues)
+        }
     }
 
     public get width() {
@@ -30,9 +33,9 @@ export class PlayerSprite {
         return this.baseSprite.height
     }
 
-    public async setAppearanceValues(appearanceValues: EquipmentData[]) {
+    public async setAppearanceValues(appearanceValues: EquipmentSprite[]) {
         this.appearanceValues = appearanceValues
-        const spritePromises = appearanceValues.map(eq => eq.getSprite(this.engine))
+        const spritePromises = appearanceValues.map(eq => eq.get(this.engine))
         const sprites = await Promise.all(spritePromises)
 
         if(this.appearanceValues != appearanceValues) { //make sure the appearance values are still up to date

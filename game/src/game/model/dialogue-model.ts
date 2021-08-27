@@ -7,11 +7,11 @@ import { Observable } from "./observable"
 export class Dialogue {
 
     public readonly id: number
-    public readonly name: string
-    public readonly lines: string[]
+    public readonly name: string[]
+    public readonly lines: string[][]
     public readonly options: string[]
 
-    constructor(id: number, name: string, lines: string[], options: string[]) {
+    constructor(id: number, name: string[], lines: string[][], options: string[]) {
         this.id = id
         this.name = name
         this.lines = lines

@@ -10,6 +10,20 @@
     },
 
     {
+        "id": "girl_blue",
+        "name": "Lily",
+        "sprite": "girl_blue",
+        "walkRadius": 1
+    },
+
+    {
+        "id": "girl_orange",
+        "name": "Latte",
+        "sprite": "girl_orange",
+        "walkRadius": 1
+    },
+
+    {
         "id": "slime_weak",
         "name": "Slime",
         "sprite": "slime",
@@ -17,10 +31,10 @@
         "walkSpeed": 0.33,
 
         "combat": {
-            "health": 50,
-            "maxHit": 10,
+            "health": 10,
+            "maxHit": 3,
             "attackSpeed": 0.5,
-            "accuracy": 2.5,
+            "accuracy": 5,
             "defence": 0
         }
     },
@@ -34,11 +48,237 @@
 
         "combat": {
             "weapon": "axe_crude",
-            "health": 100,
-            "maxHit": 20,
-            "accuracy": 10,
-            "defence": 5
+            "health": 25,
+            "maxHit": 5,
+            "accuracy": 20,
+            "defence": 15
         }
+    },
+
+    {
+        "id": "skeleton",
+        "name": "Skeleton",
+        "sprite": "skeleton",
+        "walkRadius": 3,
+        "walkSpeed": 0.5,
+
+        "combat": {
+            "weapon": "sword_iron",
+            "health": 50,
+            "maxHit": 15,
+            "attackSpeed": 0.8,
+            "accuracy": 40,
+            "defence": 30
+        }
+    },
+
+    {
+        "id": "skeleton_boss",
+        "name": "Ikkedoden",
+        "sprite": "skeleton_boss",
+
+        "walkRadius": 5,
+        "walkSpeed": 0.45,
+
+        "combat": {
+            "weapon": "sword_iron",
+            "health": 500,
+            "maxHit": 50,
+            "attackSpeed": 0.5,
+            "accuracy": 60,
+            "defence": 50
+        }
+    },
+
+    {
+        "id": "scarecrow",
+        "name": "Scarecrow",
+        "sprite": "scarecrow",
+
+        "walkRadius": 5,
+
+        "shadow": {
+            "offsetX": -4,
+            "offsetY": -4
+        }
+    },
+
+    {
+        "id": "old_man",
+        "name": "Old man",
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 1],
+            ["clothes", 0],
+            ["hair", 0]
+        ]
+    },
+
+    {
+        "id": "guard",
+        "name": "Guard",
+        "walkRadius": 10,
+
+        "sprite": "man",
+        "equip": [
+            ["iron", 3],
+            ["iron", 2],
+            ["hair", 1],
+            ["iron", 0]
+        ]
+    },
+
+    {
+        "id": "man_a",
+        "name": "Man",
+        "walkRadius": 5,
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 3],
+            ["clothes", 2],
+            ["hair", 1]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "man_b",
+        "name": "Man",
+        "walkRadius": 5,
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 1],
+            ["clothes", 0],
+            ["hair", 2]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "man_c",
+        "name": "Man",
+        "walkRadius": 5,
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 1],
+            ["clothes", 2],
+            ["hair", 0]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "woman_a",
+        "name": "Woman",
+        "walkRadius": 5,
+
+        "sprite": "woman",
+        "equip": [
+            ["clothes_f", 3],
+            ["clothes_f", 0],
+            ["hair_f", 3]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "woman_b",
+        "name": "Woman",
+        "walkRadius": 5,
+
+        "sprite": "woman",
+        "equip": [
+            ["clothes_f", 3],
+            ["clothes_f", 2],
+            ["hair_f", 2]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "woman_c",
+        "name": "Woman",
+        "walkRadius": 5,
+
+        "sprite": "woman",
+        "equip": [
+            ["clothes_f", 1],
+            ["clothes_f", 0],
+            ["hair_f", 1]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "woman_d",
+        "name": "Woman",
+        "walkRadius": 5,
+
+        "sprite": "woman",
+        "equip": [
+            ["clothes_f", 1],
+            ["clothes_f", 2],
+            ["hair_f", 0]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "banker_a",
+        "name": "Banker",
+        "walkRadius": 3,
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 5],
+            ["clothes", 4],
+            ["clothes", 3]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
+    },
+
+    {
+        "id": "banker_b",
+        "name": "Banker",
+        "walkRadius": 3,
+
+        "sprite": "man",
+        "equip": [
+            ["clothes", 5],
+            ["clothes", 4]
+        ],
+
+        "options": [
+            "Talk-to"
+        ]
     },
 
     {
@@ -59,9 +299,9 @@
         "sprite": "man",
 
         "equip": [
-            "legs_iron",
-            "plate_iron",
-            "helm_iron"
+            ["iron", 3],
+            ["iron", 2],
+            ["iron", 1]
         ],
 
         "options": [
@@ -76,32 +316,11 @@
         "sprite": "man",
 
         "equip": [
-            "wizard_bottom",
-            "wizard_top",
-            "wizard_hat",
-            "shield_copper"
+            ["wizard", 2],
+            ["wizard", 1],
+            ["wizard", 0],
+            ["copper", 0]
         ]
-    },
-
-    {
-        "id": "ent",
-        "name": "Erengard the Ent",
-        "sprite": "ent",
-
-        "walkRadius": 3,
-        "walkSpeed": 0.5,
-
-        "shadow": {
-            "offsetX": -2,
-            "offsetY": -2
-        },
-
-        "combat": {
-            "maxHit": 50,
-            "accuracy": 25,
-            "defence": 25,
-            "health": 500
-        }
     }
 
 ]

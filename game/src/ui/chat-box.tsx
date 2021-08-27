@@ -1,6 +1,7 @@
 
 import React = require("react")
 import { ChatModel } from "../game/model/chat-model"
+import { FormatText } from "./format-text"
 
 export interface ChatAreaProps {
     chat: ChatModel
@@ -22,14 +23,14 @@ interface ChatProps {
 function ChatBox(props: ChatProps) {
     const chat = props.chat
 
-    const [messages, setMessages] = React.useState(props.chat.messages)
+    const [messages, setMessages] = React.useState(props.chat.messages.value)
     const [input, setInput] = React.useState("")
     const inputRef = React.useRef(null as HTMLInputElement)
 
     React.useEffect(() => {
-        chat.onMessageUpdate = messages => setMessages(messages)
+        chat.messages.register(setMessages)
 
-        return () => chat.onMessageUpdate = null
+        return () => chat.messages.unregister(setMessages)
     }, [])
 
     React.useEffect(() => {
@@ -55,7 +56,7 @@ function ChatBox(props: ChatProps) {
         <div className="closeButton" id="closeChat" onClick={props.onCloseChat}></div>
 
         <div id="chatBoxMessageArea">
-            {messages.map((m, i) => <p key={i}>{m}</p>)}
+            {messages.map((m, i) => <p key={i}><FormatText>{m}</FormatText></p>)}
         </div>
 
         <input id="chatBoxInput" 

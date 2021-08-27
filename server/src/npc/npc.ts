@@ -79,11 +79,30 @@ export class Npc extends Character {
     }
 
     public tick() {
-        if(!this.alive || !this.still || !randomChance(15)) {
+        if(!this.alive) {
             return
         }
 
         const radius = this.data.walkRadius
+
+        if(this.target == null && this.data.id == "skeleton") {
+            for(let p of this.map.players) {
+                const diffX = p.x - this.x
+                const diffY = p.y - this.y
+
+                if((diffX != 0 || diffY != 0) && 
+                Math.abs(diffX) <= 1 && Math.abs(diffY) <= 1 && 
+                this.walkable(this.x, this.y, diffX, diffY)) {
+                    this.attack(p)
+                    return
+                }
+            }
+        }
+
+        if(!this.alive || !this.still || !randomChance(15)) {
+            return
+        }
+
         const goalX = randomOffset(this.spawnX, radius)
         const goalY = randomOffset(this.spawnY, radius)
 

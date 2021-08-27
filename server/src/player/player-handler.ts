@@ -1,6 +1,6 @@
 
 import { Player } from "./player"
-import { Packet, ConnectResponse } from "../connection/outgoing-packet"
+import { Packet, ConnectResponse, MessagePacket } from "../connection/outgoing-packet"
 import { Connection } from "../connection/connection"
 import { saveProgress } from "./progress/save-progress"
 import { Progress } from "./progress/progress"
@@ -38,6 +38,10 @@ export class PlayerHandler {
         this.players.forEach(player => {
             player.send(packet)
         })
+    }
+
+    public globalMessage(...message: string[]) {
+        this.broadcast(new MessagePacket(message))
     }
 
     public get(id: number) {

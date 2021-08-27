@@ -1,14 +1,46 @@
 
-import { actionHandler, craftingHandler, itemDataHandler, objDataHandler, shopHandler } from "../world"
-import { Woodcutting, Mining } from "./gathering"
+import { actionHandler, craftingHandler, itemDataHandler, objDataHandler, shopHandler, weatherHandler } from "../world"
+import { Woodcutting } from "./gathering"
 import { Dialogue } from "../player/window/dialogue"
 import { randomChance, randomInt } from "../util/util"
 import { initFood } from "./food"
 import { initDrops } from "./drops"
+import { cyan, green, red, yellow } from "../util/color"
+import { initMining } from "./mining"
+import { initDialogue } from "./dialogue"
 
 export function initContent() {
     initFood()
     initDrops()
+    initMining()
+    initDialogue()
+
+    actionHandler.onObject("ladder_dungeon", (player) => {
+        player.goTo('main', 78, 7)
+    })
+
+    actionHandler.onObject("door_skeleton_boss", (player) => {
+        if(!player.inventory.hasItem('key_dungeon')) {
+            player.colorMessage("You need a key to unlock this door", red)
+            return
+        }
+
+        const dialoge = new Dialogue("Warning", [
+            "You are about to enter Ikkedoden's chamber.",
+            [red.toString(), "Players below level 30 are adviced to stay away."]
+        ])
+        dialoge.addOption("Enter chamber", () => {
+            if(player.inventory.remove('key_dungeon', 1) == 0) {
+                player.goTo('skeleton_boss_chamber', 4, 9)
+            }
+
+            return null
+        })
+        dialoge.addOption("Never mind", () => {
+            return null
+        })
+        player.window = dialoge
+    })
 
     actionHandler.onObject("door_open", (player, _action, ox, oy) => {
         player.map.addTempObj("door_closed", ox, oy)
@@ -29,7 +61,7 @@ export function initContent() {
     actionHandler.onObject("fountain", player => {
         const ch = player.combatHandler
         ch.heal(ch.maxHealth-ch.health)
-        player.sendMessage("You drink from the fountain and feel rejuvenated")
+        player.colorMessage("You drink from the fountain and feel rejuvenated", green)
     })
 
     actionHandler.onObject("car", (player, action) => {
@@ -39,7 +71,7 @@ export function initContent() {
     })
 
     actionHandler.onObject("crate_small", (player, action) => {
-        if(action != "search") {
+        if(action != "search" || !player.inTimeLimit(60_000)) {
             return
         }
 
@@ -48,7 +80,7 @@ export function initContent() {
             player.inventory.add("apple", 1)
         } else {
             player.sendMessage("You find some coins.")
-            player.inventory.add("coins", randomInt(50, 60))
+            player.inventory.add("coins", randomInt(1, 3))
         }
     })
 
@@ -59,11 +91,24 @@ export function initContent() {
         }
     })
 
-    const oreCopper = objDataHandler.get("ore_copper")
-    actionHandler.onObject(oreCopper.id, (player, action, ox, oy) => {
-        if(action == "mine") {
-            new Mining(player, oreCopper, ox, oy).start()
+    const appleTree = objDataHandler.get("tree_apple")
+    actionHandler.onObject(appleTree.id, (player, action, ox, oy) => {
+        switch(action) {
+            case "pick_from":
+                player.map.addTempObj(treeCommon.id, ox, oy, 10_000)
+                player.colorMessage("You pick an apple", green)
+                player.inventory.add('apple', 1)
+                break
+            case "chop_down":
+                new Woodcutting(player, appleTree, ox, oy).start()
+                break
         }
+    })
+
+    actionHandler.onObject('bush_strawberry', (player, _, ox, oy) => {
+        player.map.addTempObj('bush', ox, oy, 10_000)
+        player.colorMessage("You pick a strawberry", green)
+        player.inventory.add('strawberry', 1)
     })
 
     actionHandler.onNpc("t_t_c", (player, npc, action) => {
@@ -76,7 +121,7 @@ export function initContent() {
         ])
 
         dialogue.addOption("Let's trade", () => {
-            player.window = shopHandler.get("Test Shop")
+            player.window = shopHandler.get("Tony's Tools for Aspiring Adventurers")
             return null
         })
 

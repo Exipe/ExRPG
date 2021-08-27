@@ -181,7 +181,7 @@ export class Inventory {
             throw `Invalid item ID: ${id}`
         }
 
-        this.removeData(itemData, amount, update)
+        return this.removeData(itemData, amount, update)
     }
 
     public removeData(itemData: ItemData, amount: number, update = true) {

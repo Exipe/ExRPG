@@ -31,9 +31,9 @@ export abstract class CombatHandler {
         this.attackDelay = Math.trunc(ATTACK_DELAY / value)
     }
 
-    protected abstract get accuracy(): number
+    public abstract get accuracy(): number
 
-    protected abstract get defence(): number
+    public abstract get defence(): number
 
     protected abstract get heldItem(): string
 

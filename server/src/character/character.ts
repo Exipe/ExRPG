@@ -169,7 +169,7 @@ export abstract class Character {
         this.stop()
 
         for(let f of this.followers) {
-            f.unfollow()
+            f.stop()
         }
 
         if(this._map != map) {

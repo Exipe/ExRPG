@@ -6,7 +6,7 @@ import { objectDirection, randomChance } from "../util/util";
 import { SwingItemPacket } from "../connection/outgoing-packet";
 import { PrimaryTask } from "../character/task";
 
-abstract class Gathering extends PrimaryTask {
+export abstract class Gathering extends PrimaryTask {
 
     protected readonly player: Player
     private readonly map: Scene
@@ -100,21 +100,4 @@ export class Woodcutting extends Gathering {
         this.player.inventory.add("log_common", 1)
     }
     
-}
-
-export class Mining extends Gathering {
-
-    constructor(player: Player, objData: ObjectData, objX: number, objY: number) {
-        super(player, objData, objX, objY, 
-            "pickaxe_crude", "ore_depleted", 625, 300, 30_000, 10)
-    }
-
-    protected onLackTool() {
-        this.player.sendMessage("You need a pickaxe to mine this ore.")
-    }
-
-    protected onSuccess() {
-        this.player.inventory.add("ore_copper", 1)
-    }
-
 }

@@ -12,14 +12,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/react": "^16.14.5",
-    "@types/react-dom": "^16.9.12",
+    "@types/react": "^16.14.8",
+    "@types/react-dom": "^16.9.13",
     "ts-loader": "^7.0.5",
-    "typescript": "^3.9.9",
+    "typescript": "^3.9.10",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
+    "lex": "^1.7.9",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"
   }

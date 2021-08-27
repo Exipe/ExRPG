@@ -4,6 +4,7 @@ import { Engine } from ".."
 import { loadTexture } from "../texture/texture"
 import { PlayerSprite } from "../texture/player-sprite"
 import { ShadowData } from "../entity/entity-shadow"
+import { EquipmentSprite } from "../item/equipment-data"
 
 export type NpcOption = [string, string]
 
@@ -17,7 +18,7 @@ export class NpcData {
 
     public readonly options: NpcOption[]
 
-    public equip = [] as string[]
+    public equip = [] as [string, number][] // [sheet, slot]
 
     public shadowData = null as ShadowData
 
@@ -30,10 +31,13 @@ export class NpcData {
 
     private async getPlayerSprite(engine: Engine, baseSprite: Sprite) {
         const itemHandler = engine.itemHandler
-        const equipData = this.equip.map(id => itemHandler.get(id).equipData)
+        const appearance = this.equip.map(eq => new EquipmentSprite(
+            itemHandler.getEquipSprite(eq[0]), // preloaded sprite sheet
+            eq[1] // slot
+        ))
 
-        const playerSprite = new PlayerSprite(engine, baseSprite, equipData)
-        await playerSprite.setAppearanceValues(equipData)
+        const playerSprite = new PlayerSprite(engine, baseSprite)
+        await playerSprite.setAppearanceValues(appearance)
         return playerSprite.sprite
     }
 

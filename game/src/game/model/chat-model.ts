@@ -2,11 +2,12 @@
 import { Connection } from "../../connection/connection";
 import { SayPacket, CommandPacket } from "../../connection/packet";
 import { Game } from "../game";
+import { Observable } from "./observable";
 
 export function initChat(game: Game) {
     const connection = game.connection
 
-    connection.on("MESSAGE", (message: string) => {
+    connection.on("MESSAGE", (message: string[]) => {
         game.chat.addMessage(message)
     })
 }
@@ -17,24 +18,23 @@ export class ChatModel {
 
     private readonly connection: Connection
 
-    private _messages: string[] = []
+    private _messages = new Observable<string[][]>([])
 
     constructor(connection: Connection) {
         this.connection = connection
     }
 
-    public onMessageUpdate: (messages: string[]) => void = null
 
     public get messages() {
         return this._messages
     }
 
-    public addMessage(message: string) {
-        this._messages = [ message ].concat(this._messages)
-
-        if(this.onMessageUpdate != null) {
-            this.onMessageUpdate(this._messages)
+    public addMessage(message: string | string[]) {
+        if(typeof message == "string") {
+            message = [ message ]
         }
+
+        this._messages.value = [ message ].concat(this._messages.value)
     }
 
     public sendMessage(message: string) {

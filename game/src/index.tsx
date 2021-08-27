@@ -3,6 +3,7 @@ import ReactDOM = require('react-dom')
 import React = require('react')
 import { Main } from './main'
 import { Menu } from './menu'
+import './ui/format-text'
 
 export type StateId = "menu" | "main"
 

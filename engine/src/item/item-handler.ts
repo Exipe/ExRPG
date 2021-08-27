@@ -1,9 +1,20 @@
 import { ItemData, ItemOption } from "./item-data";
-import { EquipmentData, EquipmentSprite } from "./equipment-data";
+import { EquipmentData, EquipmentSprite, EquipmentSpriteSheet } from "./equipment-data";
+
+function getEquipSprite(resPath: string, map: Map<string, EquipmentSpriteSheet>, key: string) {
+    let sprite = map.get(key)
+
+    if(sprite == null) {
+        sprite = new EquipmentSpriteSheet(resPath + "/equip/" + key + ".png")
+        map.set(key, sprite)
+    }
+
+    return sprite
+}
 
 export async function initItems(resPath: string) {
     const itemMap = new Map<string, ItemData>()
-    const equipSpriteMap = new Map<string, EquipmentSprite>()
+    const equipSpriteMap = new Map<string, EquipmentSpriteSheet>()
 
     const data = await fetch(resPath + "/data/item.json").then(text => text.json())
     data.forEach((itemData: any) => {
@@ -28,32 +39,33 @@ export async function initItems(resPath: string) {
                 spriteData = [spriteData, 0]
             }
 
-            let sprite = equipSpriteMap.get(spriteData[0])
-
-            if(sprite == null) {
-                sprite = new EquipmentSprite(resPath + "/equip/" + spriteData[0] + ".png")
-                equipSpriteMap.set(spriteData[0], sprite)
-            }
-
-            equip = new EquipmentData(sprite, spriteData[1], equipData.slot)
+            let sprite = getEquipSprite(resPath, equipSpriteMap, spriteData[0])
+            equip = new EquipmentData(new EquipmentSprite(sprite, spriteData[1]), equipData.slot)
         } else if(itemData.equip != null) {
-            equip = new EquipmentData(null, -1, itemData.equip.slot)
+            equip = new EquipmentData(null, itemData.equip.slot)
         }
 
         itemMap.set(id, new ItemData(id, name, resPath + "/item/" + sprite + ".png", equip, options))
     })
 
-    return new ItemHandler(itemMap)
+    return new ItemHandler(itemMap, equipSpriteMap, resPath)
 }
 
 export class ItemHandler {
 
+    private readonly resPath: string
+    private readonly equipSpriteMap: Map<string, EquipmentSpriteSheet>
     private readonly itemMap: Map<string, ItemData>
     private readonly itemList: string[]
 
-    constructor(itemMap: Map<string, ItemData>) {
+    constructor(itemMap: Map<string, ItemData>, 
+                equipSpriteMap: Map<string, EquipmentSpriteSheet>, 
+                resPath: string) 
+    {
         this.itemMap = itemMap
         this.itemList = [ ...itemMap.keys() ]
+        this.resPath = resPath
+        this.equipSpriteMap = equipSpriteMap
     }
 
     public search(prefix: string) {
@@ -62,6 +74,10 @@ export class ItemHandler {
 
     public get(id: string) {
         return this.itemMap.get(id)
+    }
+
+    public getEquipSprite(sprite: string) {
+        return getEquipSprite(this.resPath, this.equipSpriteMap, sprite)
     }
 
 }

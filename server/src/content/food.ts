@@ -4,7 +4,7 @@ import { actionHandler } from "../world";
 
 function addFood(item: string, food: Food) {
     actionHandler.onItem(item, (player, action, slot) => {
-        if(action != "eat") {
+        if(action != "eat" && action != "drink") {
             return
         }
 
@@ -14,7 +14,17 @@ function addFood(item: string, food: Food) {
 
 export function initFood() {
     addFood("apple", {
-        "heal": 25,
+        "heal": 5,
         "delay": 15_555
+    })
+
+    addFood("strawberry", {
+        "heal": 2,
+        "delay": 5_555
+    })
+
+    addFood("potion_health_weak", {
+        "heal": 20,
+        "delay": 455
     })
 }

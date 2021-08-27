@@ -78,22 +78,24 @@ export function InventoryTab(props: InventoryProps) {
         let ctxMenu = [] as MenuEntry[]
 
         const data = item[0]
+        const name = `/rgb(155,255,255,${data.name})`
+
         if(data.equipable) {
             ctxMenu.push([
-                "Equip " + data.name, 
+                "Equip " + name, 
                 () => { inventory.useItem("equip", data.id, idx) }
             ])
         }
 
         data.options.forEach(option => {
             ctxMenu.push([
-                `${option[0]} ${data.name}`, 
+                `${option[0]} ${name}`, 
                 () => { inventory.useItem(option[1], data.id, idx) }
             ])
         })
 
         ctxMenu.push([
-            "Drop " + data.name, 
+            "Drop " + name, 
             () => { inventory.useItem("drop", data.id, idx) }
         ])
 

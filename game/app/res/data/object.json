@@ -28,6 +28,30 @@
     },
 
     {
+        "id": "door_skeleton_boss",
+        "name": "Door",
+        "sprite": "door/locked",
+
+        "offsetY": 2,
+
+        "options": [
+            "/sprite(res/item/key) Unlock"
+        ]
+    },
+
+    {
+        "id": "ladder_dungeon",
+        "name": "Ladder",
+        "sprite": "ladder",
+
+        "shadow": true,
+
+        "options": [
+            "Climb up"
+        ]
+    },
+
+    {
         "id": "tree_common",
         "name": "Tree",
         "sprite": "tree",
@@ -39,6 +63,18 @@
 
         "options": [
             "Chop down"
+        ]
+    },
+
+    {
+        "id": "fishing_spot",
+        "name": "Water",
+        "sprite": "fishing_spot",
+
+        "offsetY": -8,
+
+        "options": [
+            "Fish in"
         ]
     },
 
@@ -115,7 +151,18 @@
     {
         "id": "ore_copper",
         "name": "Copper ore",
-        "sprite": "copper",
+        "sprite": "ore/copper",
+        "width": 2,
+
+        "options": [
+            "Mine"
+        ]
+    },
+
+    {
+        "id": "ore_iron",
+        "name": "Iron ore",
+        "sprite": "ore/iron",
         "width": 2,
 
         "options": [
@@ -126,7 +173,7 @@
     {
         "id": "ore_depleted",
         "name": "Rubble",
-        "sprite": "rubble",
+        "sprite": "ore/rubble",
         "width": 2
     },
 
@@ -167,6 +214,13 @@
         "name": "Torch",
         "sprite": "torch",
         "light": 32
+    },
+
+    {
+        "id": "torch_wall",
+        "name": "Torch",
+        "sprite": "wall_torch",
+        "light": 24
     },
 
     {

@@ -139,6 +139,7 @@
     background-color: var(--fg-color);
     color: white;
     border-radius: 4px;
+    box-shadow: 2px 2px rgb(0, 0, 0, 0.5);
 
     list-style-type: none;
     margin: 0;
@@ -147,6 +148,8 @@
 
 #ctxMenu > * {
     padding: 8px;
+    font-size: 15px;
+    text-shadow: -1px -1px black, 1px -1px black, -1px 1px black, 1px 1px black;
 }
 
 #ctxMenu > *:hover {
@@ -537,6 +540,7 @@
     height: fit-content;
 
     color: white;
+    white-space: initial;
 }
 
 .closeButton {
@@ -615,6 +619,7 @@
     padding: 16px;
 
     color: white;
+    white-space: initial;
 }
 
 #dialogueBox * {
@@ -624,7 +629,6 @@
 
 #dialogueName {
     margin-top: 0;
-    color: yellow;
     text-align: center;
 }
 

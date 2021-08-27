@@ -1,3 +1,4 @@
+import { yellow } from "../../util/color"
 import { Player } from "../player"
 import { PrimaryWindow } from "./p-window"
 
@@ -5,15 +6,19 @@ type DialogueOption = [ string, () => Dialogue ]
 
 export class Dialogue implements PrimaryWindow {
 
-    public readonly name: string
-    public readonly lines: string[]
+    public readonly name: string[]
+    public readonly lines: string[][]
     private readonly dialogueOptions = [] as DialogueOption[]
 
     public next = null as Dialogue
 
-    constructor(name: string, lines: string[]) {
+    constructor(name: string | string[], lines: (string | string[])[]) {
+        if(typeof(name) == 'string') {
+            name = [yellow.toString(), `「${name}」`]
+        }
+
         this.name = name
-        this.lines = lines
+        this.lines = lines.map(l => typeof(l) == 'string' ? [l] : l)
     }
 
     public readonly id = "Dialogue"

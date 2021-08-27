@@ -18,7 +18,7 @@ export class FoodHandler {
 
     eat(slot: number, food: Food) {
         if(timeSince(this.timestamp) < food.delay) {
-            this.player.sendMessage("If you try to eat any faster you might choke")
+            this.player.sendMessage("You're eating too fast")
             return
         }
 

@@ -26,7 +26,8 @@ export function initObjects(game: Game) {
     engine.inputHandler.onObjectContext = obj => {
         const data = obj.data
         data.options.forEach(option => {
-            game.ctxMenu.add([`${option[0]} ${data.name}`, () => {
+            const text = `${option[0]} /rgb(150,230,120,${data.name})`
+            game.ctxMenu.add([text, () => {
                 clickObject(obj, option[1])
             }])
         })

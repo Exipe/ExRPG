@@ -23,4 +23,9 @@ function addDrop(npcId: string, probability: number, item: string, amount: numbe
 export function initDrops() {
     addDrop("slime_weak", 3, "coins", 5)
     addDrop("slime_weak", 5, "pickaxe_crude", 1)
+
+    addDrop("goblin_weak", 20, "potion_health_weak", 1)
+    addDrop("goblin_weak", 8, "plate_copper", 1)
+
+    addDrop("skeleton", 100, 'key_dungeon', 1)
 }

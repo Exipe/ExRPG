@@ -16,12 +16,14 @@ import { MapId } from "../scene/map-id"
 import { PlayerLevel } from "./player-level"
 import { FoodHandler } from "../item/food-handler"
 import { PrimaryWindow, WindowId } from "./window/p-window"
+import { Color, cyan, yellow } from "../util/color"
+import { currentTime, timeSince } from "../util/util"
 
 export function isPlayer(character: Character): character is Player {
     return character.type == "player"
 }
 
-export const SPAWN_POINT = [ "main", 18, 41 ] as [ MapId, number, number ]
+export const SPAWN_POINT = [ "main", 48, 25 ] as [ MapId, number, number ]
 
 export class Player extends Character {
 
@@ -62,6 +64,17 @@ export class Player extends Character {
         this.progress = progress
 
         this.attributes.onChange('speed_move', value => this.walkSpeed = speedBonus(value))
+    }
+
+    private actionTimeStamp = 0
+
+    public inTimeLimit(limit: number) {
+        if(timeSince(this.actionTimeStamp) < limit) {
+            return false
+        }
+
+        this.actionTimeStamp = currentTime()
+        return true
     }
 
     public get title() {
@@ -135,7 +148,7 @@ export class Player extends Character {
     public ready() {
         this.send(new BrightnessPacket(weatherHandler.brightness))
         this.send(new WelcomePacket(this.id, this.name))
-        this.send(new MessagePacket("Welcome to ExRPG."))
+        this.sendMessage("Welcome to ExRPG.")
 
         if(this.progress != null) {
             loadProgress(this, this.progress)
@@ -246,11 +259,18 @@ export class Player extends Character {
     }
 
     public say(message: string) {
-        playerHandler.broadcast(new MessagePacket(this.name + ": " + message))
+        let format = this.rank == 1 ? '/sprite(ui/crown)' : ''
+        format += ` ${yellow} {}`
+
+        playerHandler.globalMessage(format, this.name+":", message)
     }
 
-    public sendMessage(message: string) {
+    public sendMessage(...message: string[]) {
         this.send(new MessagePacket(message))
+    }
+
+    public colorMessage(message: string, color = cyan) {
+        this.sendMessage(color.toString(), message)
     }
 
     public remove() {

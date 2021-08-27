@@ -164,7 +164,7 @@ export class MessagePacket implements Packet {
     public readonly id = "MESSAGE"
     public readonly data: any
 
-    constructor(message: string) {
+    constructor(message: string[]) {
         this.data = message
     }
 }
@@ -259,7 +259,7 @@ export class DialoguePacket implements Packet {
     public readonly id = "DIALOGUE"
     public readonly data: any
 
-    constructor(id: number, name: string, lines: string[], options: string[]) {
+    constructor(id: number, name: string[], lines: string[][], options: string[]) {
         this.data = {
             id: id,
             name: name,

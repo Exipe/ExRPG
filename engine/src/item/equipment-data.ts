@@ -4,7 +4,7 @@ import { Engine, PLAYER_SIZE } from "..";
 import { loadTexture } from "../texture/texture";
 import { MultiTexture } from "../texture/multi-texture";
 
-export class EquipmentSprite {
+export class EquipmentSpriteSheet {
 
     private sprites = [] as Sprite[]
     private readonly spritePath: string
@@ -28,10 +28,25 @@ export class EquipmentSprite {
 
 }
 
+export class EquipmentSprite {
+
+    private readonly spriteSheet: EquipmentSpriteSheet
+    private readonly idx: number
+
+    constructor(spriteSheet: EquipmentSpriteSheet, idx: number) {
+        this.spriteSheet = spriteSheet
+        this.idx = idx
+    }
+
+    public get(engine: Engine): Promise<Sprite> {
+        return this.spriteSheet.get(engine, this.idx)
+    }
+
+}
+
 export class EquipmentData {
 
-    private readonly sprite: EquipmentSprite
-    private readonly idx: number
+    public readonly sprite: EquipmentSprite
 
     public readonly slot: string
 
@@ -39,14 +54,13 @@ export class EquipmentData {
         return this.sprite != null
     }
 
-    constructor(sprite: EquipmentSprite, idx: number, slot: string) {
+    constructor(sprite: EquipmentSprite, slot: string) {
         this.sprite = sprite
-        this.idx = idx
         this.slot = slot
     }
 
     public getSprite(engine: Engine) {
-        return this.sprite.get(engine, this.idx)
+        return this.sprite.get(engine)
     }
 
 }

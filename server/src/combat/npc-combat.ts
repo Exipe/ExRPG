@@ -10,9 +10,9 @@ export class NpcCombatHandler extends CombatHandler {
 
     private readonly xp: number
 
-    protected readonly accuracy: number
+    public readonly accuracy: number
 
-    protected readonly defence: number
+    public readonly defence: number
 
     protected readonly heldItem: string
 

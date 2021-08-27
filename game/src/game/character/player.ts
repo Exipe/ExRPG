@@ -86,11 +86,11 @@ export async function initPlayers(game: Game) {
     }
 
     const getAppearanceValues = (equipment: string[]) => {
-        const appearanceValues = [] as EquipmentData[]
+        const appearanceValues = []
         equipment.forEach(id => {
             const equipData = engine.itemHandler.get(id).equipData
             if(equipData.drawable) {
-                appearanceValues.push(equipData)
+                appearanceValues.push(equipData.sprite)
             }
         })
         return appearanceValues

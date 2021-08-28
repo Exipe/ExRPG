@@ -27,7 +27,6 @@ const talkToMan = (player: Player, npc: Npc, action: string) => {
 }
 
 export function initDialogue() {
-    actionHandler.onNpc("man_a", talkToMan)
-    actionHandler.onNpc("man_b", talkToMan)
-    actionHandler.onNpc("man_c", talkToMan)
+    const men = [ "man_a", "man_b", "man_c", "woman_a", "woman_b", "woman_c", "woman_d" ]
+    men.forEach(m => actionHandler.onNpc(m, talkToMan))
 }

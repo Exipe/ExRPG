@@ -29,7 +29,7 @@ export function HeldItemPointer(props: { item: HeldItem }) {
         }
     }, [])
 
-    return <div id="heldItem"
+    return <div className="scaleIcon" id="heldItem"
         ref={pointerRef}
         style={ {
             backgroundImage: `url('${ item.item[0].spritePath }')`,

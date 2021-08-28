@@ -29,13 +29,11 @@ export class Npc extends Character {
             this.setDimensions(sprite.width, sprite.height)
             this.nameTagComponent.setNameTag("npc", this.data.name)
 
-            if(this.data.options.length > 0) {
-                const action = this.data.options[0][1]
-                const color: [number, number, number, number] = 
-                    action == "__attack" ? [1, 0.25, 0.25, 1] : [1, 1, 1, 1]
+            const color: any = this.data.options.length > 0 
+                        && this.data.options[0][1] == "__attack" 
+                        ? [1, 0.25, 0.25, 1] : [1, 1, 1, 1]
                 
-                this.componentHandler.add(new OutlineComponent(this.sprite, game.engine.shaderHandler, color))
-            }
+            this.componentHandler.add(new OutlineComponent(this.sprite, game.engine.shaderHandler, color))
 
             if(this.data.shadowData != null) {
                 this.shadow = new EntityShadow(this, sprite, this.data.shadowData)

@@ -27,7 +27,10 @@ export class ObjectEntity extends Entity {
         .then(sprite => {
             this.sprite = sprite
             this.setDimensions(sprite.width, sprite.height)
-            this.componentHandler.add(new OutlineComponent(sprite, engine.shaderHandler))
+
+            if(objectData.options.length > 0) {
+                this.componentHandler.add(new OutlineComponent(sprite, engine.shaderHandler))
+            }
 
             if(objectData.shadowData != null) {
                 this.shadow = new EntityShadow(this, sprite, objectData.shadowData)

@@ -1,5 +1,5 @@
 
-import { EquipmentData, LightComponent, PlayerSprite, Sprite } from "exrpg"
+import { EquipmentData, LightComponent, OutlineComponent, PlayerSprite, Sprite } from "exrpg"
 import { Game } from "../game"
 import { Goal } from "./path-finder"
 import { AttackPlayerPacket, FollowPlayerPacket } from "../../connection/packet"
@@ -29,7 +29,9 @@ export class Player extends Character {
         super(game, info.x, info.y, playerSprite.width, playerSprite.height)
         this.nameTagComponent.setNameTag(info.rank, info.name)
         this.componentHandler.add(new LightComponent(this, game.engine.lightHandler, 48))
-
+        if(info.id != game.localId) {
+            this.componentHandler.add(new OutlineComponent(playerSprite.sprite, game.engine.shaderHandler))
+        }
         this.id = info.id
         this.name = info.name
         this.sprite = playerSprite
@@ -74,15 +76,20 @@ export async function initPlayers(game: Game) {
             distance: 1
         }
 
-        game.ctxMenu.add(["Attack " + player.name, () => {
+        const addCtx = (option: string, action: () => void) => {
+            const text = `${option} /rgb(230,180,255,${player.name})`
+            game.ctxMenu.add([text, action])
+        }
+
+        addCtx("Attack", () => {
             game.walkToGoal(goal)
             connection.send(new AttackPlayerPacket(player.id))
-        }])
+        })
 
-        game.ctxMenu.add(["Follow " + player.name, () => {
+        addCtx("Follow", () => {
             game.walkToGoal(goal)
             connection.send(new FollowPlayerPacket(player.id))
-        }])
+        })
     }
 
     const getAppearanceValues = (equipment: string[]) => {

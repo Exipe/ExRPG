@@ -4,12 +4,13 @@ import { EntityList } from "./entity-list"
 import { InputHandler } from "../input-handler"
 import { ComponentHandler } from "./component-handler"
 import { EntityShadow } from "./entity-shadow"
+import { Hoverable } from "../hoverable"
 
 export function feetCoords(entity: Entity, tileX = entity.tileX, tileY = entity.tileY) {
     return [ tileX * TILE_SIZE + entity.offsetX, tileY * TILE_SIZE + entity.offsetY ]
 }
 
-export abstract class Entity {
+export abstract class Entity implements Hoverable {
 
     protected readonly tileSpan: number
 
@@ -54,6 +55,14 @@ export abstract class Entity {
         this._width = width
         this._height = height
         this.updateDrawCoords()
+    }
+
+    startHover(): void {
+        this.componentHandler.forEach(c => c.startHover())
+    }
+
+    stopHover(): void {
+        this.componentHandler.forEach(c => c.stopHover())
     }
 
     public get interactable() {

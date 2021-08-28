@@ -44,7 +44,7 @@ export class InputHandler {
 
         canvas.oncontextmenu = e => this.context(e)
         canvas.onmousedown = e => this.mouseDown(e)
-        canvas.onmousemove = e => this.mouseMove(e)
+        document.onmousemove = e => this.mouseMove(e)
         canvas.onmouseleave = canvas.onmouseup = () => this.mouseUp()
     }
 

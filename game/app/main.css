@@ -163,9 +163,6 @@
     height: 48px;
 
     position: absolute;
-    background-repeat: no-repeat;
-    background-size: cover;
-    image-rendering: pixelated;
 }
 
 #statusArea {
@@ -297,6 +294,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     image-rendering: pixelated;
+    background-position: center;
 }
 
 .windowName {
@@ -454,12 +452,6 @@
     display: grid;
     grid-template-columns: repeat(3, 48px);
     grid-template-rows: repeat(3, 48px);
-}
-
-#equipmentGrid > * {
-    background-repeat: no-repeat;
-    background-size: cover;
-    image-rendering: pixelated;
 }
 
 #helmSlot {

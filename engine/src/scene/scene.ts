@@ -19,6 +19,7 @@ import { DecoLayer } from "./layer/deco-layer"
 import { NpcEntity } from "../npc/npc-entity"
 import { InputHandler } from "../input-handler"
 import { BlockMap, IslandMap } from "./meta-map"
+import { Hoverable } from "../hoverable"
 
 export class Scene {
 
@@ -87,33 +88,37 @@ export class Scene {
         return this._decoLayer
     }
 
-    private hoveringEntity: Entity
+    private hovering: Hoverable = null
 
     public updateHover(x: number, y: number) {
-        let hovering: Entity = null
+        let hovering: Hoverable = null
         this.entityList.fromFront(e => {
             if(hovering != null) {
                 return
             }
 
-            if(e.interactable && e.inClickBox(x, y)) {
+            if(e.inClickBox(x, y)) {
                 hovering = e
             }
         })
 
-        if(hovering == this.hoveringEntity) {
+        if(hovering == null) {
+            hovering = this.items.find(i => i.inClickBox(x, y)) || null
+        }
+
+        if(hovering == this.hovering) {
             return
         }
 
-        if(this.hoveringEntity != null) {
-            this.hoveringEntity.componentHandler.forEach(c => c.stopHover())
+        if(this.hovering != null) {
+            this.hovering.stopHover()
         }
 
         if(hovering != null) {
-            hovering.componentHandler.forEach(c => c.startHover())
+            hovering.startHover()
         }
 
-        this.hoveringEntity = hovering
+        this.hovering = hovering
     }
 
     private inBounds(x: number, y: number) {
@@ -293,7 +298,7 @@ export class Scene {
         this._wallLayer.draw(this.engine, firstX, firstY, lastX, lastY)
         this._decoLayer.draw(this.engine, firstX, firstY, lastX, lastY)
         
-        this.items.forEach(i => i.draw())
+        this.items.forEach(i => i.draw(this.engine))
         this.entityList.fromBack(e => {
             e.draw()
         })

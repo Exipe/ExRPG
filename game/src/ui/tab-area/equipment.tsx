@@ -29,7 +29,7 @@ function EquipmentSlot(props: EquipmentSlotProps) {
         onClick = () => {}
     }
 
-    return <div
+    return <div className="scaleIcon"
         style={style}
         onClick={onClick}
     />

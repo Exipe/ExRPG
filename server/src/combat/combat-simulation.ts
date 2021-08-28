@@ -1,6 +1,7 @@
 import { Character } from "../character/character";
 import { Player } from "../player/player";
 import { Dialogue } from "../player/window/dialogue";
+import { cyan, yellow } from "../util/color";
 import { calculateDamage } from "../util/formula";
 import { CombatHandler } from "./combat";
 
@@ -52,12 +53,16 @@ export class CombatSimulation {
             winnerHealthTotal = otherCh.maxHealth
         }
 
-        this.self.window = new Dialogue(`~ ${this.self.name} vs. ${this.opponentName} ~`, [
-            `${this.self.name} DPS: ${selfDps.toFixed(2)}`,
-            `${this.opponentName} DPS: ${otherDps.toFixed(2)}`,
-            `Duration: ${Math.min(selfDur, otherDur).toFixed(2)}S`,
-            `Winner: ${winner}`,
-            `${winner} health: ${winnerHealth.toFixed(2)} / ${winnerHealthTotal}`
+        const clr = yellow
+        const title = [cyan.toString(), `~ ${this.self.name} vs. ${this.opponentName} ~`]
+        const dpsL1 = [`${this.self.name} DPS: ${clr}`, selfDps.toFixed(2)]
+        const dpsL2 = [`${this.opponentName} DPS: ${clr}`, otherDps.toFixed(2)]
+        const durL = [`Duration: ${clr}`, Math.min(selfDur, otherDur).toFixed(2)]
+        const winnerL = [`Winner: ${clr}`, winner]
+        const healthL = [`${winner} health: ${clr}`, `${winnerHealth.toFixed(2)} / ${winnerHealthTotal}`]
+
+        this.self.window = new Dialogue(title, [
+            dpsL1, dpsL2, durL, winnerL, healthL
         ])
     }
 
